@@ -24,8 +24,8 @@ namespace DekCalc
         BitMapStuff bmpStuff;
         private Graph _graph = new Graph();
 
-        Func<double, double[], double>? Fx;
-        Func<Complex, double[], Complex>? Fz;
+        Func<double, double, double, double, double, double, double>? Fx;
+        Func<Complex, double, double, double, double, double, Complex>? Fz;
 
         public MainWindow()
         {
@@ -95,6 +95,45 @@ namespace DekCalc
                 ImageBox.Source = bmpStuff.ImageSource;
             }
 
+            HookupEvents();
+        }
+
+        private void HookupEvents()
+        {
+            Parameter_A.ValueChanged += Parameter_ValueChanged;
+            Parameter_B.ValueChanged += Parameter_ValueChanged;
+            Parameter_C.ValueChanged += Parameter_ValueChanged;
+            Parameter_D.ValueChanged += Parameter_ValueChanged;
+            Parameter_E.ValueChanged += Parameter_ValueChanged;
+        }
+
+        private void Parameter_ValueChanged(object? sender, double e)
+        {
+            if (!(sender is ParameterSlider slider) || _graph is null)
+                return;
+
+            switch (slider.Name)
+            {
+                case "Parameter_A":
+                    _graph.A = Parameter_A.Value;
+                    break;
+                case "Parameter_B":
+                    _graph.B = Parameter_B.Value;
+                    break;
+                case "Parameter_C":
+                    _graph.C = Parameter_C.Value;
+                    break;
+                case "Parameter_D":
+                    _graph.D = Parameter_D.Value;
+                    break;
+                case "Parameter_E":
+                    _graph.E = Parameter_E.Value;
+                    break;
+                default:
+                    break;
+            }
+
+            Update();
         }
 
         private void ResizeBitmap()
@@ -120,5 +159,7 @@ namespace DekCalc
             else
                 Update();
         }
+
+
     }
 }

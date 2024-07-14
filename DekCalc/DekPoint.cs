@@ -8,7 +8,7 @@ namespace DekCalc
 {
     internal struct DekPoint
     {
-        public double X;
-        public double Y;
+        public double X {  get; set; }
+        public double Y { get; set; }
     }
 }

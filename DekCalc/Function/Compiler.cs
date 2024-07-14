@@ -18,12 +18,10 @@ namespace DekCalc.Function
     public static class Compiler
     {
         public static List<MetadataReference> References { get; private set; } = new List<MetadataReference>();
-        //public delegate double DoubleFunction(double x, double[] parameters);
-        //public delegate Complex ComplexFunction(Complex z, params string[] parameters);
 
         public static string ErrorMessage { get; private set; } = string.Empty;
 
-        internal static Func<double, double[], double>? CompileSimpleR2Function(string functionCode)
+        internal static Func<double, double, double, double, double, double, double>? CompileSimpleR2Function(string functionCode)
         {
             string codeText = Source.Replace("{0}", functionCode);
 
@@ -34,7 +32,7 @@ namespace DekCalc.Function
 
             object? instance = assembly.CreateInstance("DekCalc.Function.Functions");
 
-            var result = (Func<double, double[], double>)InvokeMethod(instance, "CreateSimpleFunction");
+            var result = (Func<double, double, double, double, double, double, double>?)InvokeMethod(instance, "CreateSimpleFunction");
 
             return result;
         }
@@ -181,9 +179,9 @@ namespace DekCalc.Function
             return null;
         }
 
-        public static Func<double, double>? GetFunction(this object me, string method, params object[] parameters)
+        public static Func<double, double, double, double, double, double, double>? GetFunction(this object me, string method, params object[] parameters)
         {
-            return (Func<double, double>?)InvokeMethod(me, method, parameters);
+            return (Func<double, double, double, double, double, double, double>?)InvokeMethod(me, method, parameters);
         }
 
         public static object? InvokeMethod(object instance, string method, params object[] parameters)
@@ -262,9 +260,9 @@ namespace DekCalc.Function
         //public delegate double DoubleFunction(double x, params string[] parameters);
         //public delegate Complex ComplexFunction(Complex z, params string[] parameters);
 
-        public System.Func<double, double[], double> CreateSimpleFunction()
+        public System.Func<double, double, double, double, double, double, double> CreateSimpleFunction()
         {
-            return (x, _) => {0};
+            return (x, A, B, C, D, E) => {0};
         }
     }
 }

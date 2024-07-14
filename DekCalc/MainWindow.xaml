@@ -13,7 +13,7 @@
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="131*"/>
-      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/><!--GridSplitter-->
       <ColumnDefinition Width="269*"/>
     </Grid.ColumnDefinitions>
 
@@ -23,25 +23,46 @@
               Background="Black" 
               Width="5"
               />
-    <Grid>
+    <Grid x:Name="FunctionGrid">
       <Grid.RowDefinitions>
-        <RowDefinition Height="180*"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="187*"/>
+        <RowDefinition Height="300*"/>
+        <RowDefinition Height="5"/><!--GridSplitter-->
+        <RowDefinition Height="100*"/>
       </Grid.RowDefinitions>
 
       <GridSplitter Grid.Row="1"
-              HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
+              HorizontalAlignment="Stretch" VerticalAlignment="Center"
               Background="Black" 
-              
               Height="5"
               />
-      <TextBox Name="TextBox_Func" Grid.Row="0" HorizontalAlignment="Center" TextWrapping="Wrap" 
-                 Text="Sin(x)" VerticalAlignment="Top" Height="124" Width="242" TabIndex="100" AcceptsReturn="True"/>
+      
+      <TextBox Name="TextBox_Func" Grid.Row="0" 
+               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+               ScrollViewer.VerticalScrollBarVisibility="Auto"
+               HorizontalAlignment="Stretch" VerticalAlignment="Top"
+               TextWrapping="Wrap" 
+               Text="Sin(x)"  Height="124" Margin="10" 
+               TabIndex="100" AcceptsReturn="True" />
 
-      <Button Grid.Row="0" Content="Compile" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="120" Margin="131,129,0,0" Click="Button_Click_1" TabIndex="111"/>
-      <TextBlock x:Name="Textb_Error" Grid.Row="2" HorizontalAlignment="Center" Height="201" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Width="241"/>
+      <Button Grid.Row="0" Content="Compile" 
+              HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="120" 
+              Margin="131,140,0,0" Click="Button_Click_1" TabIndex="110"/>
+
+      <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,173,0,0">
+        <local:ParameterSlider x:Name="Parameter_A" Grid.Row="0" Width="50" Margin="0"/>
+        <local:ParameterSlider x:Name="Parameter_B" Grid.Row="0" Width="50" Margin="0"/>
+        <local:ParameterSlider x:Name="Parameter_C" Grid.Row="0" Width="50" Margin="0"/>
+        <local:ParameterSlider x:Name="Parameter_D" Grid.Row="0" Width="50" Margin="0"/>
+        <local:ParameterSlider x:Name="Parameter_E" Grid.Row="0" Width="50" Margin="0"/>
+      </StackPanel>
+      <ScrollViewer Grid.Row="2" Margin="5">
+        <TextBlock x:Name="Textb_Error" Grid.Row="2" 
+                 HorizontalAlignment="Stretch" VerticalAlignment="top"
+                 MinHeight="25"
+                 Margin="0"
+                 TextWrapping="Wrap" Text="" 
+                 />
+      </ScrollViewer>
 
 
     </Grid>

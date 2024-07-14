@@ -10,6 +10,12 @@ namespace DekCalc.Graphing
 {
     internal class Graph
     {
+        public double A { get; set; } = 1;
+        public double B { get; set; } = 1;
+        public double C { get; set; } = 1;
+        public double D { get; set; } = 1;
+        public double E { get; set; } = 1;
+
         public Func<double, double> Sin = x => Math.Sin(x);
         public Func<double, double> Cos = x => Math.Cos(x);
         public Func<double, double> Tan = x => Math.Tan(x);
@@ -47,15 +53,15 @@ namespace DekCalc.Graphing
             }
         }
 
-        public void PlotFunction(Func<double, double[], double> f, Color? color = null)
+        public void PlotFunction(Func<double, double, double, double, double, double, double> f, Color? color = null)
         {
             color ??= Color.Red;
 
             double step = 1 / GPixelsPerXUnit;
-            double[] pars = new double[1];
-            for (double x = Xmin; x < Xmax; x += step)
+            double[] pars = new double[]{ A, B, C, D, E };
+            for (double x = Xmin; x < Xmax; x += step / 4)
             {
-                Line(x, f(x, pars), x + step, f(x + step, pars), color);
+                Line(x, f(x, A, B, C, D, E), x + step, f(x + step, A, B, C, D, E), color);
             }
         }
 
