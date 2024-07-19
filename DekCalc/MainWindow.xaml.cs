@@ -11,7 +11,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DekCalc.Bitmaps;
 using Graph = DekCalc.Graphing.Graph;
-using DekCalc.Function;
+using DekCalc.Functions;
 using System.Numerics;
 
 namespace DekCalc

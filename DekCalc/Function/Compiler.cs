@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
 
-namespace DekCalc.Function
+namespace DekCalc.Functions
 {
     public static class Compiler
     {

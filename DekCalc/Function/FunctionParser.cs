@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DekCalc.Function
+namespace DekCalc.Functions
 {
     internal class FunctionParser
     {

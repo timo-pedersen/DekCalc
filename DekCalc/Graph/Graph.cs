@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DekCalc.Dek;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DekCalc.Function.Compiler;
+using static DekCalc.Functions.Compiler;
 
 namespace DekCalc.Graphing
 {
@@ -119,9 +120,6 @@ namespace DekCalc.Graphing
 
             return new Point((int)(xLeft * GPixelsPerXUnit), (int)(yTop * GPixelsPerYUnit));
         }
-
-
-
 
     }
 }
