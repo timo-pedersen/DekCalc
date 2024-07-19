@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DekCalc
+namespace DekCalc.Functions
 {
-    internal struct DekPoint
+    internal class FunctionParser
     {
-        public double X {  get; set; }
-        public double Y { get; set; }
     }
 }

@@ -1,30 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DekCalc.Dek;
+using DekCalc.Functions;
 using System.Drawing;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using static DekCalc.Function.Compiler;
+using static DekCalc.Functions.Compiler;
 
 namespace DekCalc.Graphing
 {
     internal class Graph
     {
+        private List<Function<Complex, Complex>> _functions { get; } = new();
+
         public double A { get; set; } = 1;
         public double B { get; set; } = 1;
         public double C { get; set; } = 1;
         public double D { get; set; } = 1;
         public double E { get; set; } = 1;
-        private List<Fun _functions { get; }
-            = new List<Func<Complex, double, double, double, double, double, Complex>>();
 
-        public Func<double, double> Sin = x => Math.Sin(x);
-        public Func<double, double> Cos = x => Math.Cos(x);
-        public Func<double, double> Tan = x => Math.Tan(x);
-        public Func<double, double> X2 = x => x*x;
-
+        // Screen metrics
         public double Xmin { get; set; } = -10;
         public double Xmax { get; set; } = 10;
         public double Ymin { get; set; } = -10;
@@ -57,22 +54,55 @@ namespace DekCalc.Graphing
             }
         }
 
+        public void AddFunction(Function<Complex, Complex> f) => _functions.Add(f);
+
+        public void ClearFunctions() => _functions.Clear();
 
         public void PlotFunctions()
         {
-            foreach (var f in _functions)
+            if (G is null)
+                throw new ArgumentNullException("G in Graph must be initialized.");
+
+            foreach (Function<Complex, Complex> f in _functions)
             {
-                PlotFunction(f, f.Color);
+                PlotFunction(f.TheFunction, f.Color);
             }
         }
 
-        private void PlotFunction(Func<Complex, double, double, double, double, double, Complex> f, object color)
-        {
-            throw new NotImplementedException();
+        public bool ValidateFunctions { get
+            {
+                if(_functions.Count < 1)
+                    return false;
+
+                foreach(Function<Complex, Complex> f in _functions)
+                    if (f.TheFunction is null)
+                        return false;
+
+                return true;
+            }
         }
 
-        public void PlotFunction(Func<double, double, double, double, double, double, double> f, Color? color = null)
+        private void PlotFunction(Func<Complex, double, double, double, double, double, Complex> f, System.Drawing.Color? color = null)
         {
+            if (G is null)
+                throw new ArgumentNullException("G in Graph must be initialized.");
+
+            color ??= System.Drawing.Color.Red;
+
+            double step = 1 / GPixelsPerXUnit;
+            double[] pars = new double[] { A, B, C, D, E };
+            for (double x = Xmin; x < Xmax; x += step / 4)
+            {
+                Complex z = new Complex(x, 0);
+                Line(x, f(z.Real, A, B, C, D, E).Real, x + step, f(z.Real + step, A, B, C, D, E).Real, color);
+            }
+        }
+
+        private void PlotFunction(Func<double, double, double, double, double, double, double> f, Color? color = null)
+        {
+            if (G is null)
+                throw new ArgumentNullException("G in Graph must be initialized.");
+
             color ??= Color.Red;
 
             double step = 1 / GPixelsPerXUnit;
@@ -83,8 +113,11 @@ namespace DekCalc.Graphing
             }
         }
 
-        public void Line(double x0, double y0, double x1, double y1, Color? color = null)
+        private void Line(double x0, double y0, double x1, double y1, System.Drawing.Color? color = null)
         {
+            if (G is null)
+                throw new ArgumentNullException("G in Graph must be initialized.");
+
             if (x0 < Xmin || x0 > Xmax ||
                 y0 < Ymin || y0 > Ymax ||
                 x1 < Xmin || x1 > Xmax ||
@@ -99,6 +132,9 @@ namespace DekCalc.Graphing
 
         private void Lines(DekPoint[] points, Color? color = null)
         {
+            if (G is null)
+                throw new ArgumentNullException("G in Graph must be initialized.");
+
             color ??= Color.Black;
             Point[] gPoints = new Point[points.Length];
             int i = 0;
@@ -111,6 +147,9 @@ namespace DekCalc.Graphing
 
         public void DrawAxes()
         {
+            if (G is null)
+                throw new ArgumentNullException("G in Graph must be initialized.");
+
             Line(0, Ymin, 0, Ymax);
             Line(Xmin, 0, Xmax, 0);
         }
@@ -145,12 +184,6 @@ namespace DekCalc.Graphing
 
             return new Point((int)(xLeft * GPixelsPerXUnit), (int)(yTop * GPixelsPerYUnit));
         }
-
-        internal void AddFunction(Func<Complex, double, double, double, double, double, Complex> fx)
-        {
-            _functions.Add(fx);
-        }
-
 
         #endregion --------
 

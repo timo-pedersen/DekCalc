@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
 
-namespace DekCalc.Function
+namespace DekCalc.Functions
 {
     public static class Compiler
     {
@@ -21,7 +21,7 @@ namespace DekCalc.Function
 
         public static string ErrorMessage { get; private set; } = string.Empty;
 
-        internal static Func<double, double, double, double, double, double, double>? CompileSimpleR2Function(string functionCode)
+        internal static Func<Complex, double, double, double, double, double, Complex>? CompileSimpleR2Function(string functionCode)
         {
             string codeText = Source.Replace("{0}", functionCode);
 
@@ -32,7 +32,7 @@ namespace DekCalc.Function
 
             object? instance = assembly.CreateInstance("DekCalc.Function.Functions");
 
-            var result = (Func<double, double, double, double, double, double, double>?)InvokeMethod(instance, "CreateSimpleFunction");
+            var result = (Func<Complex, double, double, double, double, double, Complex>?)InvokeMethod(instance, "CreateComplexFunction");
 
             return result;
         }
@@ -175,13 +175,7 @@ namespace DekCalc.Function
 
         public static object? CreateInstance(string codeText, bool force = false)
         {
-
             return null;
-        }
-
-        public static Func<double, double, double, double, double, double, double>? GetFunction(this object me, string method, params object[] parameters)
-        {
-            return (Func<double, double, double, double, double, double, double>?)InvokeMethod(me, method, parameters);
         }
 
         public static object? InvokeMethod(object instance, string method, params object[] parameters)
@@ -243,24 +237,18 @@ namespace DekCalc.Function
 
         //    return InvokeMethod(ObjectInstance, methodName, parameters);
         //}
-        public static Func<double, double[], double> CreateSimpleFunctionTEMPL()
-        {
-            return (x, _) => x;// {0};
-        }
 
         public static string Source { get; set; } =
 """
 using static System.Math;
 using System.Numerics;
+using c = System.Numerics.Complex;
 
 namespace DekCalc.Function
 {
     public class Functions
     {
-        //public delegate double DoubleFunction(double x, params string[] parameters);
-        //public delegate Complex ComplexFunction(Complex z, params string[] parameters);
-
-        public System.Func<double, double, double, double, double, double, double> CreateSimpleFunction()
+        public System.Func<Complex, double, double, double, double, double, Complex> CreateComplexFunction()
         {
             return (x, A, B, C, D, E) => {0};
         }

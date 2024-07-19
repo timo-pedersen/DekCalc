@@ -1,5 +1,5 @@
 ﻿
-namespace DekCalc.Function
+namespace DekCalc.Functions
 {
     internal class Assert
     {

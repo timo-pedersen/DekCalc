@@ -11,7 +11,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DekCalc.Bitmaps;
 using Graph = DekCalc.Graphing.Graph;
-using DekCalc.Function;
+using DekCalc.Functions;
 using System.Numerics;
 
 namespace DekCalc
@@ -24,8 +24,8 @@ namespace DekCalc
         BitMapStuff bmpStuff;
         private Graph _graph = new Graph();
 
-        Func<double, double, double, double, double, double, double>? Fx;
-        Func<Complex, double, double, double, double, double, Complex>? Fz;
+        //Func<double, double, double, double, double, double, double>? Fx;
+        //Func<Complex, double, double, double, double, double, Complex>? Fx;
 
         public MainWindow()
         {
@@ -51,7 +51,7 @@ namespace DekCalc
             _graph.G = bmpStuff.G;
             bmpStuff.Clear();
 
-            if(Fx is null)
+            if(!_graph.ValidateFunctions)
             {
                 Error("Error: Invalid Function");
                 return;
@@ -61,9 +61,7 @@ namespace DekCalc
                 ClearError();
             }
 
-            _graph.ClearFunctions();
-            _graph.AddFunction(Fx);
-            _graph.Update();
+            _graph.PlotFunctions();
 
             ImageBox.Source = bmpStuff.ImageSource;
         }
@@ -152,7 +150,11 @@ namespace DekCalc
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             ClearError();
-            Fx = Compiler.CompileSimpleR2Function(TextBox_Func.Text);
+            _graph.ClearFunctions();  // For now
+
+            Func<Complex, double, double, double, double, double, Complex> fx = Compiler.CompileSimpleR2Function(TextBox_Func.Text);
+            Function<Complex, Complex> function = new Function<Complex, Complex>(fx, Drawing.Color.Blue, "A function");
+            _graph.AddFunction(function);
             if (!string.IsNullOrWhiteSpace(Compiler.ErrorMessage))
                 Error(Compiler.ErrorMessage);
             else
