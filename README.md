@@ -6,10 +6,10 @@ Very spikey at the moment, but works.
 
 ## ToDo
 - ~Add support for complex functions, possibly remove support for pure double functions~
-- Add parameter sliders (e.g. ability type in a function `A*Sin(B*x)` and then move corresponding sliders).
+- ~Add parameter sliders (e.g. ability type in a function `A*Sin(B*x)` and then move corresponding sliders).~
 - Add proper double buffering and invalidate()
 - Save and load workspace (i.e. a library of user functions + misc settings)
-- Add library of standard functions
+- Add library of standard functions [???]
 - Ability to show unlimited functions in the same plot
 - Proper drawing when function goes out of bounds
 - Add Complex viewing modes, look into simple 3d representation, possibly with popup window? 3d plugin?
