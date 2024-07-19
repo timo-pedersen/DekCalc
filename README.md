@@ -5,7 +5,7 @@ A tool for plotting graphs. Type a function, press 'compile' and it will be disp
 Very spikey at the moment, but works.
 
 ## ToDo
-- Add support for complex functions, possibly remove support for pure double functions
+- ~Add support for complex functions, possibly remove support for pure double functions~
 - Add parameter sliders (e.g. ability type in a function `A*Sin(B*x)` and then move corresponding sliders).
 - Add proper double buffering and invalidate()
 - Save and load workspace (i.e. a library of user functions + misc settings)
