@@ -61,10 +61,9 @@ namespace DekCalc
                 ClearError();
             }
 
-            _graph.Line(0, _graph.Ymin, 0, _graph.Ymax);
-            _graph.Line(_graph.Xmin, 0, _graph.Xmax, 0);
-
-            _graph.PlotFunction(Fx);
+            _graph.ClearFunctions();
+            _graph.AddFunction(Fx);
+            _graph.Update();
 
             ImageBox.Source = bmpStuff.ImageSource;
         }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using static DekCalc.Function.Compiler;
@@ -15,6 +17,8 @@ namespace DekCalc.Graphing
         public double C { get; set; } = 1;
         public double D { get; set; } = 1;
         public double E { get; set; } = 1;
+        private List<Fun _functions { get; }
+            = new List<Func<Complex, double, double, double, double, double, Complex>>();
 
         public Func<double, double> Sin = x => Math.Sin(x);
         public Func<double, double> Cos = x => Math.Cos(x);
@@ -51,6 +55,20 @@ namespace DekCalc.Graphing
                 GPixelsPerXUnit = Gwidth / Xwidth;
                 GPixelsPerYUnit = Gheight / Yheight;
             }
+        }
+
+
+        public void PlotFunctions()
+        {
+            foreach (var f in _functions)
+            {
+                PlotFunction(f, f.Color);
+            }
+        }
+
+        private void PlotFunction(Func<Complex, double, double, double, double, double, Complex> f, object color)
+        {
+            throw new NotImplementedException();
         }
 
         public void PlotFunction(Func<double, double, double, double, double, double, double> f, Color? color = null)
@@ -91,6 +109,14 @@ namespace DekCalc.Graphing
             G.DrawLines(new Pen(color.Value), gPoints);
         }
 
+        public void DrawAxes()
+        {
+            Line(0, Ymin, 0, Ymax);
+            Line(Xmin, 0, Xmax, 0);
+        }
+
+        #region Utils ==========================================================
+
         private (float x, float y) ToGCoords(double x, double y)
         {
             Point gp = ToGPoint(x, y);
@@ -120,8 +146,13 @@ namespace DekCalc.Graphing
             return new Point((int)(xLeft * GPixelsPerXUnit), (int)(yTop * GPixelsPerYUnit));
         }
 
+        internal void AddFunction(Func<Complex, double, double, double, double, double, Complex> fx)
+        {
+            _functions.Add(fx);
+        }
 
 
+        #endregion --------
 
     }
 }
