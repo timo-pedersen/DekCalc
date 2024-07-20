@@ -30,7 +30,7 @@ namespace DekCalc.Functions
             if(assembly == null)
                 return null; // Signals error
 
-            object? instance = assembly.CreateInstance("DekCalc.Function.Functions");
+            object? instance = assembly.CreateInstance("DekCalcDummyNameSpace.Functions");
 
             var result = (Func<Complex, double, double, double, double, double, Complex>?)InvokeMethod(instance, "CreateComplexFunction");
 
@@ -184,7 +184,7 @@ namespace DekCalc.Functions
 
             if (instance == null)
             {
-                ErrorMessage = "Can't invoke Script Method: Instance is null, and no previous call has cached the instance.";
+                ErrorMessage = "Can't invoke Script Method: instance is null.";
                 return null;
             }
 
@@ -240,14 +240,16 @@ namespace DekCalc.Functions
 
         public static string Source { get; set; } =
 """
-using static System.Math;
+//using static System.Math;
 using System.Numerics;
 using c = System.Numerics.Complex;
 
-namespace DekCalc.Function
+namespace DekCalcDummyNameSpace
 {
     public class Functions
     {
+        public static double PI => System.Math.PI;
+
         public System.Func<Complex, double, double, double, double, double, Complex> CreateComplexFunction()
         {
             return (x, A, B, C, D, E) => {0};

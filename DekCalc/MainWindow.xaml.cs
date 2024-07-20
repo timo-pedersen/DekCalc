@@ -70,12 +70,14 @@ namespace DekCalc
         {
             Textb_Error.Text = error;
             Textb_Error.Foreground = Brushes.Red;
+            Errors.Visibility = Visibility.Visible;
         }
 
         private void ClearError()
         {
             Textb_Error.Text = string.Empty;
             Textb_Error.Foreground = Brushes.Black;
+            Errors.Visibility = Visibility.Collapsed;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -92,11 +94,23 @@ namespace DekCalc
                 ImageBox.Source = bmpStuff.ImageSource;
             }
 
+            //if(_graph is null)
+            //{
+            //    _graph = new Graph();
+            //    _graph.BgColor = Drawing.Color.Beige;
+            //}
+
+            //if(_graph.G is null)
+            //    _graph.G = bmpStuff.G;
+
+            //_graph.ClearGraph();
+
             HookupEvents();
         }
 
         private void HookupEvents()
         {
+            Parameter_Img.ValueChanged += Parameter_ValueChanged;
             Parameter_A.ValueChanged += Parameter_ValueChanged;
             Parameter_B.ValueChanged += Parameter_ValueChanged;
             Parameter_C.ValueChanged += Parameter_ValueChanged;
@@ -111,6 +125,9 @@ namespace DekCalc
 
             switch (slider.Name)
             {
+                case "Parameter_Img":
+                    _graph.Img = Parameter_Img.Value;
+                    break;
                 case "Parameter_A":
                     _graph.A = Parameter_A.Value;
                     break;
@@ -147,7 +164,7 @@ namespace DekCalc
             Update();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Compile_Click(object sender, RoutedEventArgs e)
         {
             ClearError();
             _graph.ClearFunctions();  // For now
@@ -161,6 +178,25 @@ namespace DekCalc
                 Update();
         }
 
+        private void ImageBox_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+        }
 
+        private void ImageBox_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void ImageBox_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            double scaleFactor = e.Delta < 0 ? 1.25 : 0.9;
+
+            _graph.Ymax = _graph.Ymax * scaleFactor;
+            _graph.Ymin = _graph.Ymin * scaleFactor;
+            _graph.Xmax = _graph.Xmax * scaleFactor;
+            _graph.Xmin = _graph.Xmin * scaleFactor;
+
+            Update();
+        }
     }
 }

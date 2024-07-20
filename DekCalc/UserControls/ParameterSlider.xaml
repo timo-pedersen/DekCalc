@@ -14,22 +14,27 @@
       <RowDefinition Height="25"/>
     </Grid.RowDefinitions>
       <TextBox x:Name="Textb_Value" Grid.Row="0"
-               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+               VerticalContentAlignment="Center"
                Margin="0"
                Width="50"
                TextWrapping="NoWrap" 
-               Text="{Binding Value, ElementName=Slider_Value}" TextChanged="Textb_Value_TextChanged" 
+               Text="{Binding Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParameterSlider}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F2}}"
                />
 
       <Slider x:Name="Slider_Value" Grid.Row="1"
-        HorizontalAlignment="Center" VerticalAlignment="Stretch"
-        Margin="0" 
-        Orientation="Vertical" ValueChanged="Slider_Value_ValueChanged"
-              Value="0"/>
+          HorizontalAlignment="Center" VerticalAlignment="Stretch"
+          Margin="0" 
+          Orientation="Vertical" 
+          IsSnapToTickEnabled="True"
+          TickFrequency="0.1"
+          Value="{Binding Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParameterSlider}}, Mode=TwoWay}"
+          Maximum="{Binding Path=Max, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParameterSlider}}}"
+          Minimum="{Binding Path=Min, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParameterSlider}}}" MouseDoubleClick="Slider_Value_MouseDoubleClick"/>
 
       <Button x:Name="Btn_MinMax" Grid.Row="2" 
               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-              Content="MinMax" Click="Btn_MinMax_Click"/>
+              Content="MinMax" Click="Btn_MinMax_Click" FontSize="10" />
 
   </Grid>
 </UserControl>

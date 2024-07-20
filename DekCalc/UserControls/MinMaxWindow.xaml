@@ -10,19 +10,19 @@
         Loaded="Window_Loaded"
         >
     <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="1*"/>
-      <RowDefinition Height="1*"/>
-      <RowDefinition Height="1*"/>
-    </Grid.RowDefinitions>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="1*" />
-      <ColumnDefinition Width="1*" />
-    </Grid.ColumnDefinitions>
-    <TextBlock TextAlignment="Right" Padding="0,0,10,0" Grid.Row="0" Grid.Column="0" Text="Min" />
-    <TextBox x:Name="Textb_Min" Grid.Row="0" Grid.Column="1" Text="0" />
-    <TextBlock TextAlignment="Right" Padding="0,0,10,0"  Grid.Row="1" Grid.Column="0" Text="Max" />
-    <TextBox x:Name="Textb_Max" Grid.Row="1" Grid.Column="1" Text="100" />
-    <Button x:Name="Btn_Done" Grid.Row="2" Grid.ColumnSpan="2" Content="Done" Padding="0" Click="Btn_Done_Click"/>
-  </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock TextAlignment="Right" Padding="0,0,10,0" Grid.Row="0" Grid.Column="0" Text="Min" />
+        <TextBox x:Name="Textb_Min" Grid.Row="0" Grid.Column="1" />
+        <TextBlock TextAlignment="Right" Padding="0,0,10,0"  Grid.Row="1" Grid.Column="0" Text="Max" />
+        <TextBox x:Name="Textb_Max" Grid.Row="1" Grid.Column="1" />
+        <Button x:Name="Btn_Done" Grid.Row="2" Grid.ColumnSpan="2" Content="Done" Padding="0" Click="Btn_Done_Click"/>
+    </Grid>
 </Window>

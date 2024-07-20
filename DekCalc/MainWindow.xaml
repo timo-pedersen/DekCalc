@@ -12,7 +12,7 @@
       <RowDefinition Height="187*"/>
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="131*"/>
+      <ColumnDefinition Width="166*"/>
       <ColumnDefinition Width="*"/><!--GridSplitter-->
       <ColumnDefinition Width="269*"/>
     </Grid.ColumnDefinitions>
@@ -41,32 +41,43 @@
                ScrollViewer.VerticalScrollBarVisibility="Auto"
                HorizontalAlignment="Stretch" VerticalAlignment="Top"
                TextWrapping="Wrap" 
-               Text="Sin(x)"  Height="124" Margin="10" 
+               Text="c.Sin(B * x) * A"  Height="124" Margin="10" 
                TabIndex="100" AcceptsReturn="True" />
 
       <Button Grid.Row="0" Content="Compile" 
               HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="120" 
-              Margin="131,140,0,0" Click="Button_Click_1" TabIndex="110"/>
+              Margin="131,140,0,0" Click="Button_Compile_Click" TabIndex="110"/>
 
       <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,173,0,0">
-        <local:ParameterSlider x:Name="Parameter_A" Grid.Row="0" Width="50" Margin="0"/>
-        <local:ParameterSlider x:Name="Parameter_B" Grid.Row="0" Width="50" Margin="0"/>
-        <local:ParameterSlider x:Name="Parameter_C" Grid.Row="0" Width="50" Margin="0"/>
-        <local:ParameterSlider x:Name="Parameter_D" Grid.Row="0" Width="50" Margin="0"/>
-        <local:ParameterSlider x:Name="Parameter_E" Grid.Row="0" Width="50" Margin="0"/>
+        <local:ParameterSlider x:Name="Parameter_Img" Grid.Row="0" Margin="0" Value="0" Max="10" Min="-10" DefaultSliderValue="0"/>
+        <local:ParameterSlider x:Name="Parameter_A" Grid.Row="0" Margin="0" Value="1" Max="10" />
+        <local:ParameterSlider x:Name="Parameter_B" Grid.Row="0" Margin="0" Value="1" Max="10" />
+        <local:ParameterSlider x:Name="Parameter_C" Grid.Row="0" Margin="0" Value="1" Max="10" />
+        <local:ParameterSlider x:Name="Parameter_D" Grid.Row="0" Margin="0" Value="1" Max="10" />
+        <local:ParameterSlider x:Name="Parameter_E" Grid.Row="0" Margin="0" Value="1" Max="10" />
       </StackPanel>
-      <ScrollViewer Grid.Row="2" Margin="5">
-        <TextBlock x:Name="Textb_Error" Grid.Row="2" 
+
+
+    </Grid>
+
+    <Image Name="ImageBox" Grid.Column="1" 
+           Cursor="Cross" 
+           GotFocus="Image_GotFocus" 
+           Grid.ColumnSpan="2" 
+           Margin="2,0,0,0" 
+           MouseUp="ImageBox_MouseUp"
+           MouseDown="ImageBox_MouseDown"
+           MouseWheel="ImageBox_MouseWheel"
+           />
+
+    <ScrollViewer Name="Errors" Grid.Column="2" Margin="5" Height="100" VerticalAlignment="Bottom" Visibility="Collapsed">
+      <TextBlock x:Name="Textb_Error" Grid.Row="2" 
                  HorizontalAlignment="Stretch" VerticalAlignment="top"
                  MinHeight="25"
                  Margin="0"
                  TextWrapping="Wrap" Text="" 
                  />
-      </ScrollViewer>
+    </ScrollViewer>
 
-
-    </Grid>
-
-    <Image Name="ImageBox" Grid.Column="1" Cursor="Cross" GotFocus="Image_GotFocus" Grid.ColumnSpan="2" Margin="2,0,0,0"/>
   </Grid>
 </Window>
