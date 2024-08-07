@@ -41,7 +41,7 @@
                ScrollViewer.VerticalScrollBarVisibility="Auto"
                HorizontalAlignment="Stretch" VerticalAlignment="Top"
                TextWrapping="Wrap" 
-               Text="c.Sin(B * x) * A"  Height="124" Margin="10" 
+               Text="Sin(B * x) * A"  Height="124" Margin="10" 
                TabIndex="100" AcceptsReturn="True" />
 
       <Button Grid.Row="0" Content="Compile" 

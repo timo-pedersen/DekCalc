@@ -17,6 +17,8 @@ namespace DekCalc.Functions
 {
     public static class Compiler
     {
+        private const string DummyNamespace = "DekCalcDummyNamespace";
+
         public static List<MetadataReference> References { get; private set; } = new List<MetadataReference>();
 
         public static string ErrorMessage { get; private set; } = string.Empty;
@@ -30,7 +32,7 @@ namespace DekCalc.Functions
             if(assembly == null)
                 return null; // Signals error
 
-            object? instance = assembly.CreateInstance("DekCalcDummyNameSpace.Functions");
+            object? instance = assembly.CreateInstance($"{DummyNamespace}.Functions");
 
             var result = (Func<Complex, double, double, double, double, double, Complex>?)InvokeMethod(instance, "CreateComplexFunction");
 
@@ -239,12 +241,12 @@ namespace DekCalc.Functions
         //}
 
         public static string Source { get; set; } =
-"""
-//using static System.Math;
+$$"""
+using m = System.Math;
 using System.Numerics;
-using c = System.Numerics.Complex;
+using static System.Numerics.Complex;
 
-namespace DekCalcDummyNameSpace
+namespace {{DummyNamespace}}
 {
     public class Functions
     {
