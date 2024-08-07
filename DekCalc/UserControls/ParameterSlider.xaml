@@ -5,24 +5,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DekCalc"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="50"
-             Loaded="UserControl_Loaded">
+             d:DesignHeight="250" d:DesignWidth="40"
+             Loaded="UserControl_Loaded"
+             Unloaded="UserControl_Unloaded">
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="25"/>
+      <RowDefinition Height="20"/>
+      <RowDefinition Height="20"/>
       <RowDefinition Height="*"/>
-      <RowDefinition Height="25"/>
+      <RowDefinition Height="20"/>
     </Grid.RowDefinitions>
-      <TextBox x:Name="Textb_Value" Grid.Row="0"
+    <Label FontSize="12"
+           FontWeight="Bold"
+           Margin="0" Padding="0"
+           HorizontalContentAlignment="Center"
+           Content="{Binding Header, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParameterSlider}}, Mode=OneWay}"/>
+    <TextBox x:Name="Textb_Value" Grid.Row="1"
                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                VerticalContentAlignment="Center"
-               Margin="0"
-               Width="50"
+               HorizontalContentAlignment="Center"
+               Margin="0" Padding="0"
                TextWrapping="NoWrap" 
+               FontSize="11"
                Text="{Binding Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParameterSlider}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F2}}"
                />
 
-      <Slider x:Name="Slider_Value" Grid.Row="1"
+      <Slider x:Name="Slider_Value" Grid.Row="2"
           HorizontalAlignment="Center" VerticalAlignment="Stretch"
           Margin="0" 
           Orientation="Vertical" 
@@ -32,9 +40,10 @@
           Maximum="{Binding Path=Max, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParameterSlider}}}"
           Minimum="{Binding Path=Min, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ParameterSlider}}}" MouseDoubleClick="Slider_Value_MouseDoubleClick"/>
 
-      <Button x:Name="Btn_MinMax" Grid.Row="2" 
+      <Button x:Name="Btn_MinMax" Grid.Row="3" 
               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-              Content="MinMax" Click="Btn_MinMax_Click" FontSize="10" />
+              FontSize="9"
+              Content="MinMax" Click="Btn_MinMax_Click"  />
 
   </Grid>
 </UserControl>

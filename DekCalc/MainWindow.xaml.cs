@@ -198,5 +198,10 @@ namespace DekCalc
 
             Update();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //MessageBox.Show("Wooot");
+        }
     }
 }

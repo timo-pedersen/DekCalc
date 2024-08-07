@@ -21,9 +21,14 @@ namespace DekCalc
     /// </summary>
     public partial class ParameterSlider : UserControl
     {
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
+            "Header", typeof(string),
+            typeof(ParameterSlider),
+            new FrameworkPropertyMetadata("---", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
         public static readonly DependencyProperty MinProperty = DependencyProperty.Register(
-            "Min", typeof(double), 
-            typeof(ParameterSlider), 
+            "Min", typeof(double),
+            typeof(ParameterSlider),
             new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnCoerceValue));
 
         public static readonly DependencyProperty MaxProperty = DependencyProperty.Register(
@@ -35,6 +40,8 @@ namespace DekCalc
             "DefaultSliderValue", typeof(double),
             typeof(ParameterSlider),
             new FrameworkPropertyMetadata(1.0));
+
+        private MinMaxWindow The_MinMaxWindow;
 
         public double DefaultSliderValue
         {
@@ -53,6 +60,11 @@ namespace DekCalc
             return true;
         }
 
+        public string Header
+        {
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
+        }
         public double Min
         {
             get { return (double)GetValue(MinProperty); }
@@ -95,26 +107,24 @@ namespace DekCalc
 
         private void Btn_MinMax_Click(object sender, RoutedEventArgs e)
         {
-            MinMaxWindow minMaxWindow = new MinMaxWindow();
+            if(The_MinMaxWindow is null)
+                The_MinMaxWindow = new MinMaxWindow();
             Point p = PointToScreen(Mouse.GetPosition(this));
-            minMaxWindow.Min = Min;
-            minMaxWindow.Max = Max;
-            minMaxWindow.Left = p.X;
-            minMaxWindow.Top = p.Y;
-            minMaxWindow.ShowDialog();
-            Min = minMaxWindow.Min;
-            Max = minMaxWindow.Max;
+            The_MinMaxWindow.Min = Min;
+            The_MinMaxWindow.Max = Max;
+            The_MinMaxWindow.Left = p.X;
+            The_MinMaxWindow.Top = p.Y;
+            The_MinMaxWindow.ShowDialog();
+            Min = The_MinMaxWindow.Min;
+            Max = The_MinMaxWindow.Max;
         }
-
-        //private void Slider_Value_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        //{
-        //    Value = (double)e.NewValue;
-        //    ValueChanged?.Invoke(this, e.NewValue);
-        //}
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
+            if (The_MinMaxWindow is null)
+                The_MinMaxWindow = new MinMaxWindow();
+            The_MinMaxWindow.Min = Min;
+            The_MinMaxWindow.Max = Max;
         }
 
         private void Slider_Value_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -123,28 +133,12 @@ namespace DekCalc
             {
                 Value = DefaultSliderValue;
             }
-
-            
         }
 
-        //private void Textb_Value_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    if(double.TryParse(Textb_Value.Text, out double value))
-        //    {
-        //        Value = value;
-        //        //ValueChanged?.Invoke(this, value);
-        //    }
-        //}
-
-        //private void ShowValue()
-        //{
-        //    double pos = Slider_Value.Value;
-
-        //    double delta = Max - Min;
-
-        //    double newValue = Min + delta * pos / 10;
-
-        //    Textb_Value.Text = newValue.ToString("F2");
-        //}
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            The_MinMaxWindow.Close();
+            The_MinMaxWindow = null;
+        }
     }
 }

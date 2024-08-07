@@ -6,15 +6,16 @@
         xmlns:local="clr-namespace:DekCalc"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" 
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
   <Grid Name="TheGrid" SizeChanged="TheGrid_SizeChanged">
     <Grid.RowDefinitions>
-      <RowDefinition Height="187*"/>
+      <RowDefinition Height="187*" MinHeight="100"/>
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="166*"/>
-      <ColumnDefinition Width="*"/><!--GridSplitter-->
-      <ColumnDefinition Width="269*"/>
+      <ColumnDefinition Width="166*" MinWidth="240"/>
+      <ColumnDefinition Width="*"/> <!--GridSplitter-->
+      <ColumnDefinition Width="269*" MinWidth="100"/>
     </Grid.ColumnDefinitions>
 
     <GridSplitter Grid.Column="1"
@@ -26,7 +27,7 @@
     <Grid x:Name="FunctionGrid">
       <Grid.RowDefinitions>
         <RowDefinition Height="300*"/>
-        <RowDefinition Height="5"/><!--GridSplitter-->
+        <RowDefinition Height="5"/> <!--GridSplitter-->
         <RowDefinition Height="100*"/>
       </Grid.RowDefinitions>
 
@@ -35,28 +36,32 @@
               Background="Black" 
               Height="5"
               />
-      
-      <TextBox Name="TextBox_Func" Grid.Row="0" 
+      <StackPanel Orientation="Vertical">
+        <TextBox Name="TextBox_Func" Grid.Row="0" 
                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                ScrollViewer.VerticalScrollBarVisibility="Auto"
                HorizontalAlignment="Stretch" VerticalAlignment="Top"
-               TextWrapping="Wrap" 
-               Text="Sin(B * x) * A"  Height="124" Margin="10" 
-               TabIndex="100" AcceptsReturn="True" />
+               TextWrapping="Wrap" AcceptsReturn="True" 
+               Text="A * Sin(B * x)"  
+               Height="124" Margin="10 10 10 5" 
+               TabIndex="100" />
 
-      <Button Grid.Row="0" Content="Compile" 
-              HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="120" 
-              Margin="131,140,0,0" Click="Button_Compile_Click" TabIndex="110"/>
+        <Button Grid.Row="0" Content="Compile" 
+              HorizontalAlignment="Right" VerticalAlignment="Top" Height="28" Width="120" 
+              Margin="0 0 10 0" 
+              Click="Button_Compile_Click" 
+              TabIndex="110"/>
 
-      <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,173,0,0">
-        <local:ParameterSlider x:Name="Parameter_Img" Grid.Row="0" Margin="0" Value="0" Max="10" Min="-10" DefaultSliderValue="0"/>
-        <local:ParameterSlider x:Name="Parameter_A" Grid.Row="0" Margin="0" Value="1" Max="10" />
-        <local:ParameterSlider x:Name="Parameter_B" Grid.Row="0" Margin="0" Value="1" Max="10" />
-        <local:ParameterSlider x:Name="Parameter_C" Grid.Row="0" Margin="0" Value="1" Max="10" />
-        <local:ParameterSlider x:Name="Parameter_D" Grid.Row="0" Margin="0" Value="1" Max="10" />
-        <local:ParameterSlider x:Name="Parameter_E" Grid.Row="0" Margin="0" Value="1" Max="10" />
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10 10 10 0" Height="140">
+          <local:ParameterSlider x:Name="Parameter_Img" Header="i" Grid.Row="0" Margin="1" Value="0" Max="10" Min="-10" DefaultSliderValue="0"/>
+          <local:ParameterSlider x:Name="Parameter_A" Header="A" Grid.Row="0" Margin="1" Value="1" Max="10" />
+          <local:ParameterSlider x:Name="Parameter_B" Header="B" Grid.Row="0" Margin="1" Value="1" Max="10" />
+          <local:ParameterSlider x:Name="Parameter_C" Header="C" Grid.Row="0" Margin="1" Value="1" Max="10" />
+          <local:ParameterSlider x:Name="Parameter_D" Header="D" Grid.Row="0" Margin="1" Value="1" Max="10" />
+          <local:ParameterSlider x:Name="Parameter_E" Header="E" Grid.Row="0" Margin="1" Value="1" Max="10" />
+        </StackPanel>
       </StackPanel>
-
 
     </Grid>
 

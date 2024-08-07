@@ -64,7 +64,7 @@ namespace DekCalc.UserControls
             //    Max = max;
             //if (double.TryParse(Textb_Min.Text, out double min))
             //    Min = min;
-            Close();
+            Visibility = Visibility.Hidden;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
